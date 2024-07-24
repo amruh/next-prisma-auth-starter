@@ -1,8 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) Starter Kit with some tech stack that i frequently used. I also include the basic of Role Based Authentication for protecting some action or resources with [Auth.js](https://authjs.dev/).
+
+## Tech Stack 
+
+- [Next.js](https://nextjs.org/learn)
+- [Auth.js](https://authjs.dev/)
+- [Prisma](https://www.prisma.io/)
+- [Shadcn UI](https://ui.shadcn.com/)
 
 ## Getting Started
 
-First, run the development server:
+1. First, run `npm install`.
+2. Copy the `.env.example` file and rename it to `.env`.
+3. Run `npx auth secret` then copy the result to `AUTH_SECRET` value in `.env` file.
+4. Create database, i use mysql for this starter kit, but you can use databases which you prefer. Then change `DATABASE_URL` value in `.env` file with database creadentials and name.
+5. Run `npx prisma db push` to push schema to the database.
+6. Seed the database use `npx prisma db seed` will run the `seed.ts` file that located in `./prisma` and create a user with **ADMIN** Roles.
+7. Run the development server:
 
 ```bash
 npm run dev
@@ -15,22 +28,3 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
