@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import LoginFormButton from "./form-button";
+import { PasswordInput } from "@/components/password-input";
 
 type TLoginSchema = z.infer<typeof LoginSchema>;
 
@@ -69,8 +70,7 @@ export default function LoginForm() {
             <FormItem className="space-y-0.5 mb-2">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   {...field}
                   placeholder="********"
                   disabled={isSubmitting}

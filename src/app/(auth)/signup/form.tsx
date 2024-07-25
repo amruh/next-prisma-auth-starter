@@ -1,6 +1,7 @@
 "use client";
 
 import { signUp } from "@/actions/user";
+import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -91,8 +92,7 @@ export default function SignUpForm() {
             <FormItem className="space-y-0.5 mb-2">
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   {...field}
                   placeholder="********"
                   disabled={isSubmitting}

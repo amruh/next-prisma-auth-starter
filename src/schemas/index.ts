@@ -1,3 +1,4 @@
+import { UserRole } from "@prisma/client";
 import { z } from "zod";
 
 export const SignUpSchema = z.object({
@@ -22,3 +23,45 @@ export const LoginSchema = z.object({
     })
     .max(100),
 });
+
+const CreateUser = z.object({
+  email: z.string().email({
+    message: "Please enter a valid email address",
+  }),
+  name: z.string().min(1, {
+    message: "Name is required",
+  }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be 8 character minimum" }),
+  confirmPassword: z.string({ message: "Please provide a password" }),
+  role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
+});
+
+export const CreateUserSchema = CreateUser.refine(
+  (data) => data.password === data.confirmPassword,
+  {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  }
+);
+
+const UpdateUser = CreateUser.omit({
+  password: true,
+  confirmPassword: true,
+}).extend({
+  password: z
+    .string()
+    .min(8, { message: "Password must be 8 character minimum" })
+    .optional()
+    .or(z.literal("")),
+  confirmPassword: z.string().optional(),
+});
+
+export const UpdateUserSchema = UpdateUser.refine(
+  (data) => data.password === data.confirmPassword,
+  {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  }
+);

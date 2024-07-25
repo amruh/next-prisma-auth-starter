@@ -3,7 +3,8 @@
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
-import { LoginSchema, SignUpSchema } from "@/schemas";
+import { CreateUserSchema, LoginSchema, SignUpSchema, UpdateUserSchema } from "@/schemas";
+import { Prisma, User } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
@@ -42,7 +43,7 @@ export const signUp = async (values: unknown) => {
   redirect("/login");
 };
 
-export async function logIn(_: unknown, formData: unknown) {
+export const logIn = async (_: unknown, formData: unknown) => {
   if (!(formData instanceof FormData)) {
     return {
       error: "Invalid form data.",
@@ -84,4 +85,98 @@ export async function logIn(_: unknown, formData: unknown) {
   } finally {
     redirect("/app/dashboard");
   }
-}
+};
+
+export const createUser = async (values: unknown) => {
+  const validatedFields = CreateUserSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return { error: "Invalid fields" };
+  }
+
+  const { name, email, password, role } = validatedFields.data;
+
+  const checkExistingUser = await getUserByEmail(email);
+
+  if (checkExistingUser) {
+    return { error: "Email already exist" };
+  }
+
+  try {
+    const hashedPassword = await hash(password, 12);
+    await db.user.create({
+      data: {
+        name,
+        email: email.toLowerCase(),
+        hashedPassword,
+        role
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong" };
+  }
+
+  revalidatePath("/app", "layout");
+};
+
+export const updateUser = async (values: unknown, userId: User["id"]) => {
+  const validatedFields = UpdateUserSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      error: "Invalid fields",
+    };
+  }
+
+  const { name, email, password, role } = validatedFields.data;
+  const existingUser = await getUserByEmail(email);
+
+  let hashedPassword;
+
+  if (password) {
+    hashedPassword = await hash(password, 12);
+  }
+
+  try {
+    await db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name,
+        role,
+        email,
+        hashedPassword: hashedPassword ?? existingUser?.hashedPassword,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return { error: "Something went wrong" };
+  }
+
+  revalidatePath("/app", "layout");
+};
+
+export const deleteUser = async (userId: User["id"]) => {
+  try {
+    await db.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return {
+        error: error.message,
+      };
+    }
+    return {
+      error: "Fail to delete data",
+    };
+  }
+
+  revalidatePath("/app", "layout");
+};

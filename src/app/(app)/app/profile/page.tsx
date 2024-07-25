@@ -1,7 +1,9 @@
+import H1 from "@/components/h1";
+
 export default function ProfilePage() {
   return (
     <div>
-      <h1 className="font-bold text-lg">Profile Page</h1>
+      <H1>Profile Page</H1>
     </div>
-  )
+  );
 }
