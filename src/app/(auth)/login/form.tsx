@@ -19,11 +19,14 @@ import { toast } from "sonner";
 import { z } from "zod";
 import LoginFormButton from "./form-button";
 import { PasswordInput } from "@/components/password-input";
+import { useSearchParams } from "next/navigation";
 
 type TLoginSchema = z.infer<typeof LoginSchema>;
 
 export default function LoginForm() {
-  const [logInError, dispatchLogIn] = useFormState(logIn, undefined);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "";
+  const [logInError, dispatchLogIn] = useFormState(logIn.bind(null, callbackUrl), undefined);
 
   useEffect(() => {
     if (logInError?.error) {

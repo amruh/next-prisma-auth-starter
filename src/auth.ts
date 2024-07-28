@@ -4,7 +4,6 @@ import bcrypt from "bcryptjs";
 import { LoginSchema } from "./schemas";
 import { UserRole } from "@prisma/client";
 import { getUserByEmail } from "./data/user";
-import { useRouter } from "next/router";
 
 declare module "next-auth" {
   interface User {
@@ -55,26 +54,17 @@ const config = {
   callbacks: {
     // runs on every request with middleware
     authorized: ({ auth, request }) => {
-      const isLoggedIn = auth?.user;
+      const isLoggedIn = !!auth?.user;
       const isTryingToAccessApp = request.nextUrl.pathname.includes("/app");
 
-      if (!isLoggedIn && isTryingToAccessApp) {
+      if (isTryingToAccessApp) {
+        if (isLoggedIn) return true;
         return false;
-      }
-
-      if (isLoggedIn && isTryingToAccessApp) {
-        return true;
-      }
-
-      if (isLoggedIn && !isTryingToAccessApp) {
+      } else if (isLoggedIn) {
         return Response.redirect(new URL("/app/dashboard", request.nextUrl));
       }
 
-      if (!isLoggedIn && !isTryingToAccessApp) {
-        return true;
-      }
-
-      return false;
+      return true;
     },
 
     // modify the token while login (server token)

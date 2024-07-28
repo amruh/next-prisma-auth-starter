@@ -3,7 +3,12 @@
 import { signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
 import { db } from "@/lib/db";
-import { CreateUserSchema, LoginSchema, SignUpSchema, UpdateUserSchema } from "@/schemas";
+import {
+  CreateUserSchema,
+  LoginSchema,
+  SignUpSchema,
+  UpdateUserSchema,
+} from "@/schemas";
 import { Prisma, User } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { AuthError } from "next-auth";
@@ -43,7 +48,11 @@ export const signUp = async (values: unknown) => {
   redirect("/login");
 };
 
-export const logIn = async (_: unknown, formData: unknown) => {
+export const logIn = async (
+  callbackUrl: string,
+  _: unknown,
+  formData: unknown,
+) => {
   if (!(formData instanceof FormData)) {
     return {
       error: "Invalid form data.",
@@ -65,25 +74,22 @@ export const logIn = async (_: unknown, formData: unknown) => {
   }
 
   try {
-    await signIn("credentials", formData);
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: callbackUrl || "/app/dashboard",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
-        case "CredentialsSignin": {
-          return {
-            error: "Invalid credentials.",
-          };
-        }
+        case "CredentialsSignin":
+          return { error: "Invalid credentials." };
         default: {
-          return {
-            error: "Could not login.",
-          };
+          return { error: "Could not login." };
         }
       }
     }
     throw error;
-  } finally {
-    redirect("/app/dashboard");
   }
 };
 
@@ -109,7 +115,7 @@ export const createUser = async (values: unknown) => {
         name,
         email: email.toLowerCase(),
         hashedPassword,
-        role
+        role,
       },
     });
   } catch (error) {
