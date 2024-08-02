@@ -11,10 +11,10 @@ import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <div className="flex h-screen justify-center items-center relative">
+    <div className="relative flex h-screen items-center justify-center">
       <Card className="w-[400px]">
         <CardHeader className="space-y-2 pb-4">
-          <CardTitle className="text-2xl font-semibold text-center">
+          <CardTitle className="text-center text-2xl font-semibold">
             🔐 Login Page
           </CardTitle>
           <CardDescription className="text-center">
@@ -25,7 +25,7 @@ export default function LoginPage() {
           <LoginForm />
         </CardContent>
         <CardFooter>
-          <p className="text-xs mx-auto">
+          <p className="mx-auto text-xs">
             Didn&apos;t have an account?{" "}
             <span className="font-medium hover:underline">
               {" "}

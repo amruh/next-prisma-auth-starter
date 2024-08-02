@@ -34,28 +34,28 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="p-4 text-sm flex flex-col gap-y-5">
+    <aside className="flex flex-col gap-y-5 p-4 text-sm">
       <div className="flex justify-center">
         <Logo />
       </div>
-      <div className="space-y-2 flex flex-col">
+      <div className="flex flex-col space-y-2">
         {ROUTES.filter((item) => item.roles.includes(data?.user.role!)).map(
           ({ Icon, ...route }) => (
             <Link
               href={route.path}
               key={route.name}
               className={cn(
-                "px-3 py-2 flex items-center gap-x-2 text-zinc-500 border border-transparent hover:text-zinc-800 hover:bg-white/50 hover:rounded-md transition",
+                "flex items-center gap-x-2 border border-transparent px-3 py-2 text-zinc-500 transition hover:rounded-md hover:bg-white/50 hover:text-zinc-800",
                 {
-                  "bg-white/70 rounded-md border border-zinc-200 shadow-sm text-zinc-800":
+                  "rounded-md border border-zinc-200 bg-white/70 text-zinc-800 shadow-sm":
                     pathname === route.path,
-                }
+                },
               )}
             >
               <Icon />
               {route.name}
             </Link>
-          )
+          ),
         )}
       </div>
       <Button

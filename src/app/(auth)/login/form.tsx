@@ -26,7 +26,10 @@ type TLoginSchema = z.infer<typeof LoginSchema>;
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "";
-  const [logInError, dispatchLogIn] = useFormState(logIn.bind(null, callbackUrl), undefined);
+  const [logInError, dispatchLogIn] = useFormState(
+    logIn.bind(null, callbackUrl),
+    undefined,
+  );
 
   useEffect(() => {
     if (logInError?.error) {
@@ -53,7 +56,7 @@ export default function LoginForm() {
           control={control}
           name="email"
           render={({ field }) => (
-            <FormItem className="space-y-0.5 mb-2">
+            <FormItem className="mb-2 space-y-0.5">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
@@ -70,7 +73,7 @@ export default function LoginForm() {
           control={control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-0.5 mb-2">
+            <FormItem className="mb-2 space-y-0.5">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <PasswordInput

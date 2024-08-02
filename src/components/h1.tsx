@@ -10,9 +10,9 @@ export default function H1({ children }: { children: React.ReactNode }) {
       transition={{
         type: "spring",
         stiffness: 260,
-        damping: 20
+        damping: 20,
       }}
-      className="font-bold text-lg"
+      className="text-lg font-bold"
     >
       {children}
     </motion.h1>

@@ -55,7 +55,7 @@ export default function SignUpForm() {
           control={control}
           name="name"
           render={({ field }) => (
-            <FormItem className="space-y-0.5 mb-2">
+            <FormItem className="mb-2 space-y-0.5">
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
@@ -72,7 +72,7 @@ export default function SignUpForm() {
           control={control}
           name="email"
           render={({ field }) => (
-            <FormItem className="space-y-0.5 mb-2">
+            <FormItem className="mb-2 space-y-0.5">
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
@@ -89,7 +89,7 @@ export default function SignUpForm() {
           control={control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-0.5 mb-2">
+            <FormItem className="mb-2 space-y-0.5">
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <PasswordInput
@@ -102,7 +102,7 @@ export default function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full mt-3" disabled={isSubmitting}>
+        <Button type="submit" className="mt-3 w-full" disabled={isSubmitting}>
           Sign Up
         </Button>
       </form>

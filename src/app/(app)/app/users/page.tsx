@@ -6,7 +6,7 @@ import CreateUserDialog from "./_components/create-dialog";
 export default async function UsersPage() {
   return (
     <>
-      <div className="flex justify-between items-center mb-3">
+      <div className="mb-3 flex items-center justify-between">
         <H1>Users List</H1>
         <CreateUserDialog />
       </div>

@@ -74,7 +74,7 @@ export default function EditUserForm({
           control={control}
           name="name"
           render={({ field }) => (
-            <FormItem className="space-y-1 mb-2.5">
+            <FormItem className="mb-2.5 space-y-1">
               <FormLabel className="">Name</FormLabel>
               <FormControl className="col-span-3">
                 <Input {...field} disabled={isSubmitting} />
@@ -87,7 +87,7 @@ export default function EditUserForm({
           control={control}
           name="email"
           render={({ field }) => (
-            <FormItem className="space-y-1 mb-2.5">
+            <FormItem className="mb-2.5 space-y-1">
               <FormLabel className="">Email</FormLabel>
               <FormControl className="col-span-3">
                 <Input {...field} type="email" disabled={isSubmitting} />
@@ -100,7 +100,7 @@ export default function EditUserForm({
           control={control}
           name="role"
           render={({ field }) => (
-            <FormItem className="space-y-1 mb-2.5">
+            <FormItem className="mb-2.5 space-y-1">
               <FormLabel>Role</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl className="col-span-3">
@@ -121,7 +121,7 @@ export default function EditUserForm({
           control={control}
           name="password"
           render={({ field }) => (
-            <FormItem className="space-y-1 mb-2.5">
+            <FormItem className="mb-2.5 space-y-1">
               <FormLabel className="">New Password</FormLabel>
               <FormControl className="col-span-3">
                 <PasswordInput {...field} disabled={isSubmitting} />
@@ -134,7 +134,7 @@ export default function EditUserForm({
           control={control}
           name="confirmPassword"
           render={({ field }) => (
-            <FormItem className="space-y-1 mb-5">
+            <FormItem className="mb-5 space-y-1">
               <FormLabel className="">Confirm Password</FormLabel>
               <FormControl className="col-span-3">
                 <PasswordInput {...field} disabled={isSubmitting} />

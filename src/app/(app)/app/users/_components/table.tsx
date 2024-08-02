@@ -11,9 +11,9 @@ export default async function UsersTable() {
 
   return (
     <>
-      <div className="relative overflow-x-auto border rounded-lg">
-        <table className="w-full bg-zinc text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-zinc-100 dark:bg-gray-700 dark:text-gray-400">
+      <div className="overflow-x-auto rounded-lg border">
+        <table className="bg-zinc w-full text-left text-sm text-gray-500 rtl:text-right">
+          <thead className="bg-zinc-100 text-xs uppercase text-gray-700">
             <tr>
               <th scope="col" className="px-6 py-3">
                 Name
@@ -38,23 +38,20 @@ export default async function UsersTable() {
               </tr>
             )}
             {users?.map((user) => (
-              <tr
-                key={user.id}
-                className=" dark:bg-gray-800 dark:border-gray-700"
-              >
+              <tr key={user.id}>
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
                 >
                   {user.name}
                 </th>
-                <td className="px-6 py-4 flex items-center gap-x-2">
+                <td className="flex items-center gap-x-2 px-6 py-4">
                   <EnvelopeClosedIcon className="size-4" /> {user.email}
                 </td>
                 <td className="px-6 py-4">
                   <Badge variant="outline">{user.role}</Badge>
                 </td>
-                <td className="px-6 py-4 flex gap-x-2">
+                <td className="flex gap-x-2 px-6 py-4">
                   <EditUserButton user={user} />
                   <DeleteUserButton user={user} />
                 </td>
