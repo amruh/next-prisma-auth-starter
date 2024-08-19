@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useUserStore } from "@/app/store/userStore";
+import { useUserStore } from "@/store/userStore";
 import { useTransition } from "react";
 import { deleteUser } from "@/actions/user";
 import { toast } from "sonner";

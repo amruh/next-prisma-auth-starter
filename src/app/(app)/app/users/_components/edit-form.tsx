@@ -1,7 +1,7 @@
 "use client";
 
 import { updateUser } from "@/actions/user";
-import { useUserStore } from "@/app/store/userStore";
+import { useUserStore } from "@/store/userStore";
 import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";

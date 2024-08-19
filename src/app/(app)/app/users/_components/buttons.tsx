@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/app/store/userStore";
+import { useUserStore } from "@/store/userStore";
 import { Button } from "@/components/ui/button";
 import { User } from "@prisma/client";
 import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";

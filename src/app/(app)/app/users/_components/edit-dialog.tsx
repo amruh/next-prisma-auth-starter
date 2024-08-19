@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/app/store/userStore";
+import { useUserStore } from "@/store/userStore";
 import {
   Dialog,
   DialogContent,
